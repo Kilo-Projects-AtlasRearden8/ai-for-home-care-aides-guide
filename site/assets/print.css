@@ -1,0 +1,16 @@
+/* Print-only tweaks for worksheets */
+@media print {
+  body { font-size: 11pt; line-height: 1.4; }
+  h1 { font-size: 16pt; margin-bottom: 0.4rem; }
+  h2 { font-size: 12.5pt; border-bottom: 1px solid #444; padding-bottom: 0.2rem; }
+  h3 { font-size: 11pt; margin-top: 1rem; }
+  p { margin-bottom: 0.6rem; }
+  ul, ol { margin-bottom: 0.7rem; }
+  .no-print { display: none !important; }
+  .callout, .prompt, .example { border: 1px solid #666; background: #fff; page-break-inside: avoid; }
+  pre { white-space: pre-wrap; font-family: monospace; font-size: 9pt; }
+  .sheet-line { border-bottom: 1px solid #999; min-height: 1.35rem; }
+  .checkbox { font-size: 10pt; }
+  page-break { page-break-before: always; }
+  @page { margin: 1.6cm; }
+}
