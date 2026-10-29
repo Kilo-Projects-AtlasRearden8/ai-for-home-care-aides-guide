@@ -8,7 +8,8 @@ Checks:
 - No obvious secrets / personal data patterns
 - All docs and site files exist
 - HTML files parse and internal links resolve
-- Printable sheets exist
+- Printable sheets exist and are linked as HTML (rendered, printable)
+- Every page links to print.css for clean printing
 """
 from html.parser import HTMLParser
 from pathlib import Path
@@ -53,6 +54,10 @@ for rel in [
     "site/free-models.html",
     "site/assets/style.css",
     "site/assets/print.css",
+    "site/printable-sheets/daily-note-sheet.html",
+    "site/printable-sheets/care-plan-sheet.html",
+    "site/printable-sheets/family-update-sheet.html",
+    "site/printable-sheets/quick-start-cheat-sheet.html",
 ]:
     check((ROOT / rel).is_file(), f"file exists: {rel}")
 
@@ -112,7 +117,7 @@ class LinkCollector(HTMLParser):
                 self.links.append(value)
 
 
-html_files = sorted((ROOT / "site").glob("*.html"))
+html_files = sorted((ROOT / "site").rglob("*.html"))
 check(len(html_files) >= 6, f"site has HTML pages ({len(html_files)} found)")
 
 for html_path in html_files:
@@ -128,6 +133,14 @@ for html_path in html_files:
             print(f"FAIL: {html_path.name}: link escapes root: {link}")
             continue
         check(target.is_file(), f"{html_path.name}: link resolves: {link}")
+
+# --- Every page links to print.css -----------------------------------------
+for html_path in html_files:
+    text = html_path.read_text()
+    check(
+        'print.css' in text,
+        f"{html_path.relative_to(ROOT)} links to print.css",
+    )
 
 # --- Cross-reference: site pages reference docs sections -------------------
 docs_index = (ROOT / "docs/index.md").read_text()

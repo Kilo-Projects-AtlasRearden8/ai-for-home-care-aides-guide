@@ -11,7 +11,7 @@ Credits Asdale Dynamics, LLC throughout.
 
 - `LICENSE` — MIT License, copyright line exactly:
   `Copyright (c) 2026 Asdale Dynamics, LLC`
-- `README.md` — purpose, audience, safety rules, credits Asdale Dynamics, LLC
+- `README.md` — purpose, audience, golden rules, credits Asdale Dynamics, LLC
 - `docs/` — full manual in Markdown:
   - `index.md` — manual home with chapter and printable-sheet index
   - `00-safety-first.md` — golden rules, what client details means, de-identifying
@@ -23,6 +23,7 @@ Credits Asdale Dynamics, LLC throughout.
   - `printable-sheets/` — four one-page worksheets (daily note, care plan, family update, quick-start cheat sheet)
 - `site/` — static HTML website mirroring the manual (open `site/index.html` in any browser, no build step):
   - `index.html`, `safety.html`, `getting-started.html`, `daily-notes.html`, `care-plans.html`, `family-updates.html`, `free-models.html`
+  - `printable-sheets/` — four rendered, printable HTML worksheets linked from the site index
   - `assets/style.css` — screen styles; `assets/print.css` — print styles
 - `tests/verify.py` — verification script
 
@@ -30,21 +31,22 @@ Credits Asdale Dynamics, LLC throughout.
 
 - Read the manual: open `docs/index.md` in any Markdown reader, or open
   `site/index.html` in any web browser. No server, no install, no build step.
-- Print sheets: open any sheet (Markdown or HTML page) and use File > Print.
-  Print styles are in `site/assets/print.css`.
+- Print sheets: open any sheet under `site/printable-sheets/` and use File >
+  Print. Print styles are in `site/assets/print.css`.
 - Run verification: `python3 tests/verify.py` (Python 3, standard library only)
 
 ## Verification results
 
-`python3 tests/verify.py` — ALL CHECKS PASSED (23 files scanned for secrets).
+`python3 tests/verify.py` — ALL CHECKS PASSED (28 files scanned for secrets).
 
 Verified:
-- All 23 expected files exist
+- All expected files exist (docs chapters, printable sheets, site pages, CSS, tests)
 - `LICENSE` contains the exact line `Copyright (c) 2026 Asdale Dynamics, LLC`
 - `README.md` credits Asdale Dynamics, LLC and references the copyright line
 - No `.github/workflows` directory present
 - No secret or personal-data patterns (API keys, SSN-like strings, private keys) in any file
 - All HTML files parse and all internal links resolve to existing files
+- Every page links to `print.css` for clean printing
 - `docs/index.md` references all six chapters
 
 No secrets, API keys, or personal data were added. Nothing was pushed, no remote
@@ -54,5 +56,5 @@ repository was created, nothing was published.
 
 - Examples use made-up placeholders ([Client], [Date], etc.); real usage requires the aide to substitute their own de-identified facts and follow agency policy.
 - Local AI tools (Ollama, LM Studio, Jan) are named as options but not installed or tested in this repo — installation is a manual step for the user.
-- The HTML site links to the printable Markdown sheets; browsers may render those as plain text rather than formatted worksheets.
+- The Markdown sheets under `docs/printable-sheets/` are the canonical text source; the rendered HTML versions live under `site/printable-sheets/` and must be kept in sync if the text changes.
 - No automated spell-check or accessibility testing included.
